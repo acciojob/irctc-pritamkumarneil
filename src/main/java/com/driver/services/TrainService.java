@@ -33,7 +33,7 @@ public class TrainService {
         return train.getTrainId();
     }
 
-    public Integer calculateAvailableSeats(SeatAvailabilityEntryDto seatAvailabilityEntryDto) throws Exception {
+    public Integer calculateAvailableSeats(SeatAvailabilityEntryDto seatAvailabilityEntryDto){
 
         //Calculate the total seats available
         //Suppose the route is A B C D
@@ -59,7 +59,8 @@ public class TrainService {
             }
         }
         if(indexOfToStation==-1||indexOfFromStation==-1||indexOfToStation<=indexOfFromStation){
-            throw new Exception("Invalid stations");
+//            throw new Exception("Invalid stations");
+            return 0;
         }
         //
         int count=train.getNoOfSeats();

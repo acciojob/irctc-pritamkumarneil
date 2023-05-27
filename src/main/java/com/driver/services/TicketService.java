@@ -90,7 +90,10 @@ public class TicketService {
                 indexOfToStation=i;
             }
         }
-
+        if(indexOfToStation==-1||indexOfFromStation==-1||indexOfToStation<=indexOfFromStation){
+            throw new Exception("Invalid stations");
+//            return 0;
+        }
 
         totalFare=(indexOfToStation-indexOfFromStation)*300;
         // creating ticket object
