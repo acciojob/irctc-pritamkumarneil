@@ -56,7 +56,12 @@ public class TicketService {
             Passenger passenger=optionalPassenger.get();
             passengers.add(passenger);
         }
-        Passenger bookingPerson=passengerRepository.findById(bookTicketEntryDto.getBookingPersonId()).get();
+        try{
+            Passenger bookingPerson=passengerRepository.findById(bookTicketEntryDto.getBookingPersonId()).get();
+        }
+        catch (Exception e) {
+            throw e;
+        }
         int bookingSeat=passengers.size();
         Train train=trainRepository.findById(bookTicketEntryDto.getTrainId()).get();
 
@@ -72,7 +77,7 @@ public class TicketService {
             throw e;
         }
 
-        if(bookingSeat>availableSeats){
+        if(bookTicketEntryDto.getNoOfSeats()>availableSeats){
             throw new Exception("Less tickets are available");
         }
         int totalFare=0;

@@ -58,11 +58,15 @@ public class TrainService {
                 indexOfToStation=i;
             }
         }
-        if(indexOfToStation==-1||indexOfFromStation==-1||indexOfToStation<=indexOfFromStation){
+        if(indexOfToStation==-1||indexOfFromStation==-1){
 //            throw new Exception("Invalid stations");
             return 0;
         }
-        //
+        if(indexOfFromStation>indexOfToStation){
+            int temp=indexOfFromStation;
+            indexOfFromStation=indexOfToStation;
+            indexOfToStation=temp;
+        }
         int count=train.getNoOfSeats();
         for(Ticket ticket: train.getBookedTickets()){
             int boardingIndex=getIndexOfStation(route,ticket.getFromStation());
@@ -165,7 +169,7 @@ public class TrainService {
         }
         List<Integer> ans=new ArrayList<>();
         for(Pair train:passingTrains){
-            if(train.arrivalTime.equals(startTime)||train.arrivalTime.equals(endTime)|| train.arrivalTime.isAfter(startTime) && train.arrivalTime.isBefore(endTime)){
+            if(/*train.arrivalTime.equals(startTime)||train.arrivalTime.equals(endTime)|| */train.arrivalTime.isAfter(startTime) && train.arrivalTime.isBefore(endTime)){
                 ans.add(train.train.getTrainId());
             }
         }
