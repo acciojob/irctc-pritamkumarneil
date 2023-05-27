@@ -36,8 +36,13 @@ public class TrainController {
 
     @GetMapping("/calculate-avaiable-seats")
     public Integer checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto) throws Exception {
+       try{
+
         Integer count = trainService.calculateAvailableSeats(seatAvailabilityEntryDto);
         return count;
+       }catch (Exception e){
+           throw e;
+       }
     }
 
     @GetMapping("/calculate-people-onboarding")
@@ -66,8 +71,8 @@ public class TrainController {
 
     @GetMapping("get-list-of-trains-arriving-in-a-range-of-time")
     public List<Integer> calculateListOfTrainIdsAtAStationInAParticularTimeRange(@RequestParam("station")Station station,
-                                                                                 @RequestParam("startTime")LocalTime startTime
-            ,@RequestParam("endTime")LocalTime endTime){
+                                                                                 @RequestParam("startTime")LocalTime startTime,
+                                                                                 @RequestParam("endTime")LocalTime endTime){
 
         return trainService.trainsBetweenAGivenTime(station,startTime,endTime);
 //        @RequestBody TimeRangeDto timeRangeDto

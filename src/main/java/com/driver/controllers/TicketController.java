@@ -17,13 +17,13 @@ public class TicketController {
     TicketService ticketService;
 
     @PostMapping("/book")
-    public Integer bookTicket(@RequestBody BookTicketEntryDto bookTicketEntryDto){
+    public Integer bookTicket(@RequestBody BookTicketEntryDto bookTicketEntryDto)throws Exception{
 
         try {
             Integer ticketId = ticketService.bookTicket(bookTicketEntryDto);
             return ticketId;
         }catch (Exception e) {
-            return null;
+            throw e;
         }
     }
 
