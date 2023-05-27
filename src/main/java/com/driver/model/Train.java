@@ -21,15 +21,15 @@ public class Train {
     private int trainId;
 
     private String route;
+    private int noOfSeats;
+    private LocalTime departureTime; //This is the time it starts from its first station
+    //And it takes 1 hour to reach the next station on its route
 
     //Mapping with tickets Entity : parent Entity
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL)
     private List<Ticket> bookedTickets = new ArrayList<>();
 
-    private LocalTime departureTime; //This is the time it starts from its first station
-    //And it takes 1 hour to reach the next station on its route
 
-    private int noOfSeats;
 
     public Train() {
     }

@@ -2,6 +2,7 @@ package com.driver.controllers;
 
 import com.driver.EntryDto.AddTrainEntryDto;
 import com.driver.EntryDto.SeatAvailabilityEntryDto;
+import com.driver.EntryDto.TimeRangeDto;
 import com.driver.model.Station;
 import com.driver.services.TrainService;
 import io.swagger.models.auth.In;
@@ -34,7 +35,7 @@ public class TrainController {
     }
 
     @GetMapping("/calculate-avaiable-seats")
-    public Integer checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto){
+    public Integer checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto) throws Exception {
         Integer count = trainService.calculateAvailableSeats(seatAvailabilityEntryDto);
         return count;
     }
@@ -53,7 +54,7 @@ public class TrainController {
     @GetMapping("/calculate-oldest-person-travelling/{trainId}")
     public Integer calculateOldestPersonTravelling(@PathVariable("trainId")Integer trainId){
 
-        //We need to find out the oldest person Travellign
+        //We need to find out the oldest person Travelling
 
         try{
             Integer age = trainService.calculateOldestPersonTravelling(trainId);
@@ -66,8 +67,10 @@ public class TrainController {
     @GetMapping("get-list-of-trains-arriving-in-a-range-of-time")
     public List<Integer> calculateListOfTrainIdsAtAStationInAParticularTimeRange(@RequestParam("station")Station station,
                                                                                  @RequestParam("startTime")LocalTime startTime
-                                                                                 ,@RequestParam("endTime")LocalTime endTime){
+            ,@RequestParam("endTime")LocalTime endTime){
 
         return trainService.trainsBetweenAGivenTime(station,startTime,endTime);
+//        @RequestBody TimeRangeDto timeRangeDto
+//        return trainService.trainsBetweenAGivenTime(timeRangeDto);
     }
 }
